@@ -122,6 +122,7 @@ export default function Page() {
   const [history, setHistory] = useState<{role: 'user'|'ai', text: string}[]>([]); const [loading, setLoading] = useState(false);
 
   const activateSystem = async () => { if (await initAudio()) { setAudioReady(true); speak("System Online."); } };
+  
   const handleSend = async (e: React.FormEvent) => {
     e.preventDefault(); if (!input.trim()) return;
     const userText = input; setHistory(p => [...p, { role: 'user', text: userText }]);
@@ -152,14 +153,14 @@ export default function Page() {
               <div className="w-full max-w-lg h-[60vh] bg-black/80 backdrop-blur border border-gray-800 flex flex-col">
                  <div className="p-3 border-b border-gray-800 flex justify-between items-center"><span className="text-xs font-bold flex items-center gap-2"><Cpu size={14}/> CORE</span>
                  <input type="password" placeholder="API KEY" className="bg-black border border-gray-700 text-[10px] px-2 py-1 w-32 focus:w-64 transition-all outline-none text-gray-300" value={apiKey} onChange={e=>setApiKey(e.target.value)}/></div>
-                 <div className="flex-1 overflow-y-auto p-4 space-y-4 text-sm">{history.map((msg,i)=><div key={i} className={\`flex \${msg.role==='user'?'justify-end':'justify-start'}\`}><div className={\`max-w-[85%] p-3 \${msg.role==='user'?'bg-gray-800':'bg-red-900/20 text-red-100'}\`}>{msg.text}</div></div>)}{loading&&<div className="text-xs text-gray-500 animate-pulse">COMPUTING...</div>}</div>
+                 <div className="flex-1 overflow-y-auto p-4 space-y-4 text-sm">{history.map((msg,i)=><div key={i} className={`flex \${msg.role==='user'?'justify-end':'justify-start'}\`}><div className={\`max-w-[85%] p-3 \${msg.role==='user'?'bg-gray-800':'bg-red-900/20 text-red-100'}\`}>{msg.text}</div></div>)}{loading&&<div className="text-xs text-gray-500 animate-pulse">COMPUTING...</div>}</div>
                  <form onSubmit={handleSend} className="p-3 border-t border-gray-800 flex gap-2"><input value={input} onChange={e=>setInput(e.target.value)} className="flex-1 bg-transparent outline-none text-sm" placeholder="Command..."/><button type="submit"><MessageSquare size={16}/></button></form>
               </div>
            )}
         </div>
         <footer className="pointer-events-auto flex justify-center gap-8 pb-8">
-           <button onClick={()=>setActiveModule('VISUALIZER')} className={\`flex flex-col items-center gap-1 text-xs \${activeModule==='VISUALIZER'?'text-red-500':'text-gray-600'}\`}><Volume2 size={20}/><span>VISUAL</span></button>
-           <button onClick={()=>setActiveModule('AI_CHAT')} className={\`flex flex-col items-center gap-1 text-xs \${activeModule==='AI_CHAT'?'text-red-500':'text-gray-600'}\`}><MessageSquare size={20}/><span>AI</span></button>
+           <button onClick={()=>setActiveModule('VISUALIZER')} className={`flex flex-col items-center gap-1 text-xs \${activeModule==='VISUALIZER'?'text-red-500':'text-gray-600'}\`}><Volume2 size={20}/><span>VISUAL</span></button>
+           <button onClick={()=>setActiveModule('AI_CHAT')} className={`flex flex-col items-center gap-1 text-xs \${activeModule==='AI_CHAT'?'text-red-500':'text-gray-600'}\`}><MessageSquare size={20}/><span>AI</span></button>
         </footer>
       </div>
     </main>
