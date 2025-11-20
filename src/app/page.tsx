@@ -114,6 +114,8 @@ const RealAIService = {
   }
 };
 
+// 从 export default function Page() { 开始，替换到文件末尾
+
 export default function Page() {
   const [audioReady, setAudioReady] = useState(false);
   const [activeModule, setActiveModule] = useState<'VISUALIZER' | 'AI_CHAT'>('VISUALIZER');
